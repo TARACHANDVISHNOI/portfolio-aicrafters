@@ -1,47 +1,9 @@
 
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Mail, Linkedin, Github, Send } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-
-const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Please enter a valid email address'),
-  message: z.string().min(10, 'Message must be at least 10 characters'),
-});
-
-type FormValues = z.infer<typeof formSchema>;
+import { Mail, Linkedin, Github } from 'lucide-react';
+import ContactForm from './ContactForm';
 
 const Contact: React.FC = () => {
-  const { toast } = useToast();
-  
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      email: '',
-      message: '',
-    },
-  });
-
-  const onSubmit = (data: FormValues) => {
-    console.log('Form data:', data);
-    // Here you would typically send this data to your backend or email service
-    
-    toast({
-      title: "Message Sent!",
-      description: "Thanks for reaching out. I'll get back to you soon.",
-    });
-    
-    form.reset();
-  };
-
   return (
     <section id="contact" className="py-20">
       <div className="container mx-auto px-4">
@@ -83,67 +45,7 @@ const Contact: React.FC = () => {
           
           <div>
             <h3 className="text-xl font-semibold mb-6 text-white">Send Me a Message</h3>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Name</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Your name" 
-                          className="bg-ai-dark/50 border-gray-700 text-white focus-visible:ring-ai-blue" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Email</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Your email" 
-                          className="bg-ai-dark/50 border-gray-700 text-white focus-visible:ring-ai-blue" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-gray-300">Message</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="How can I help you?" 
-                          className="bg-ai-dark/50 border-gray-700 text-white focus-visible:ring-ai-blue min-h-[120px]" 
-                          {...field} 
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <Button type="submit" className="bg-ai-blue hover:bg-ai-blue/90 text-white w-full">
-                  Send Message <Send className="ml-2 w-4 h-4" />
-                </Button>
-              </form>
-            </Form>
+            <ContactForm />
           </div>
         </div>
       </div>
