@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { Send } from 'lucide-react';
 
+// Updated schema to ensure fields are required, matching the database requirements
 const contactFormSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
   email: z.string().email('Please enter a valid email address'),
@@ -33,7 +34,6 @@ const ContactForm: React.FC = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
-      // Fixed: Pass a single object instead of an array
       const { error } = await supabase
         .from('contact_messages')
         .insert(data);
