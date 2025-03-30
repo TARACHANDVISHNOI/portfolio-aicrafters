@@ -34,9 +34,16 @@ const ContactForm: React.FC = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
+      // Explicitly cast the data to match the required structure for the table
+      const contactData = {
+        name: data.name,
+        email: data.email,
+        message: data.message,
+      };
+      
       const { error } = await supabase
         .from('contact_messages')
-        .insert(data);
+        .insert(contactData);
 
       if (error) throw error;
       
