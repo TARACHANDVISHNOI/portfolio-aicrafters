@@ -33,9 +33,10 @@ const ContactForm: React.FC = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     try {
+      // Fixed: Pass a single object instead of an array
       const { error } = await supabase
         .from('contact_messages')
-        .insert([data]);
+        .insert(data);
 
       if (error) throw error;
       
