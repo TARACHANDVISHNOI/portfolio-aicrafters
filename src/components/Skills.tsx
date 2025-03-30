@@ -1,105 +1,101 @@
 
 import React from 'react';
-import { BrainCircuit, Cpu, Bot, LineChart, Database, Network } from 'lucide-react';
-
-const skills = [
-  {
-    name: "Machine Learning",
-    icon: BrainCircuit,
-    description: "Developing custom ML models for classification, regression, and clustering tasks."
-  },
-  {
-    name: "Natural Language Processing",
-    icon: Bot,
-    description: "Building systems that understand, interpret, and generate human language."
-  },
-  {
-    name: "AI Automation",
-    icon: Cpu,
-    description: "Creating automated workflows powered by intelligent decision-making systems."
-  },
-  {
-    name: "Predictive Analytics",
-    icon: LineChart,
-    description: "Leveraging historical data to forecast trends and inform strategic decisions."
-  },
-  {
-    name: "Data Engineering",
-    icon: Database,
-    description: "Designing robust data pipelines and architectures for AI applications."
-  },
-  {
-    name: "Deep Learning",
-    icon: Network,
-    description: "Implementing neural networks for complex pattern recognition tasks."
-  }
-];
-
-const services = [
-  {
-    title: "AI Strategy & Consulting",
-    description: "Comprehensive analysis of your business needs and development of tailored AI integration roadmaps.",
-    features: ["AI Readiness Assessment", "Technology Selection", "Implementation Planning"]
-  },
-  {
-    title: "Custom AI Model Development",
-    description: "End-to-end development of specialized machine learning models to address your unique challenges.",
-    features: ["Data Preparation", "Model Training & Validation", "Deployment & Monitoring"]
-  },
-  {
-    title: "AI Chatbot & Virtual Assistant",
-    description: "Intelligent conversational agents that enhance customer experience and automate support.",
-    features: ["Natural Language Understanding", "Integration with Existing Systems", "Continuous Learning"]
-  },
-  {
-    title: "AI Automation & Workflow",
-    description: "Streamlining operations through intelligent process automation and decision support systems.",
-    features: ["Process Analysis", "RPA + AI Integration", "Performance Optimization"]
-  }
-];
+import { BrainCircuit, Bot, Database, LineChart, Layers, Settings, Code, Network, ArrowRight } from 'lucide-react';
 
 const Skills: React.FC = () => {
-  return (
-    <section id="skills" className="py-20 bg-gradient-to-b from-ai-dark/95 to-ai-dark">
-      <div className="section-container">
-        <h2 className="section-title">Skills & Services</h2>
+  const skills = [
+    {
+      icon: <BrainCircuit className="w-12 h-12 text-ai-blue" />,
+      title: 'Machine Learning',
+      description: 'Custom ML model development, fine-tuning, and deployment for specific business needs.'
+    },
+    {
+      icon: <Bot className="w-12 h-12 text-ai-blue" />,
+      title: 'AI Chatbots',
+      description: 'Intelligent virtual assistants and conversational AI for customer support and service automation.'
+    },
+    {
+      icon: <Database className="w-12 h-12 text-ai-blue" />,
+      title: 'Big Data Processing',
+      description: 'Data pipeline architecture, ETL processes, and large-scale analytics solutions.'
+    },
+    {
+      icon: <LineChart className="w-12 h-12 text-ai-blue" />,
+      title: 'Predictive Analytics',
+      description: 'Forecasting, trend analysis, and data-driven insights for informed decision making.'
+    },
+    {
+      icon: <Layers className="w-12 h-12 text-ai-blue" />,
+      title: 'Deep Learning',
+      description: 'Neural network design and optimization for image recognition, NLP, and complex pattern detection.'
+    },
+    {
+      icon: <Settings className="w-12 h-12 text-ai-blue" />,
+      title: 'Process Automation',
+      description: 'Workflow optimization and end-to-end business process automation using AI technologies.'
+    },
+    {
+      icon: <Code className="w-12 h-12 text-ai-blue" />,
+      title: 'AI Development',
+      description: 'TensorFlow, PyTorch, scikit-learn, and custom AI solution development.'
+    },
+    {
+      icon: <Network className="w-12 h-12 text-ai-blue" />,
+      title: 'AI Strategy',
+      description: 'Comprehensive roadmaps for AI adoption, implementation, and scaling across organizations.'
+    }
+  ];
 
+  const services = [
+    {
+      title: 'AI Strategy & Consulting',
+      description: 'Custom roadmaps for AI integration into your business with clear milestones and ROI projections.'
+    },
+    {
+      title: 'Custom AI Model Development',
+      description: 'Tailored AI solutions designed specifically for your business challenges and data environment.'
+    },
+    {
+      title: 'AI Chatbot & Virtual Assistant',
+      description: 'Conversational AI systems that enhance customer experience and automate support processes.'
+    },
+    {
+      title: 'AI Automation & Workflow',
+      description: 'End-to-end process automation that reduces manual tasks and improves operational efficiency.'
+    }
+  ];
+
+  return (
+    <section id="skills" className="py-20">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Skills & Services</h2>
+        <div className="h-1 w-20 bg-ai-blue mb-10"></div>
+        
         <div className="mb-20">
-          <h3 className="text-2xl font-bold text-ai-blue mb-8">Technical Expertise</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-animation">
-            {skills.map((skill, index) => {
-              const Icon = skill.icon;
-              return (
-                <div key={index} className="glass-card p-6 hover:border-ai-blue/30 transition-all duration-300">
-                  <div className="w-12 h-12 bg-ai-blue/20 rounded-lg flex items-center justify-center mb-4">
-                    <Icon size={24} className="text-ai-blue" />
-                  </div>
-                  <h4 className="text-lg font-bold text-white mb-2">{skill.name}</h4>
-                  <p className="text-ai-light/80">{skill.description}</p>
+          <h3 className="text-2xl font-semibold mb-10 text-white">Technical Skills</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {skills.map((skill, index) => (
+              <div key={index} className="bg-ai-dark/50 rounded-lg p-6 backdrop-blur-sm border border-gray-700 hover:border-ai-blue transition-colors group">
+                <div className="mb-4 group-hover:scale-110 transition-transform">
+                  {skill.icon}
                 </div>
-              );
-            })}
+                <h4 className="text-xl font-semibold mb-2 text-white">{skill.title}</h4>
+                <p className="text-gray-300">{skill.description}</p>
+              </div>
+            ))}
           </div>
         </div>
-
+        
         <div>
-          <h3 className="text-2xl font-bold text-ai-blue mb-8">Services Offered</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-animation">
+          <h3 className="text-2xl font-semibold mb-10 text-white">Services Offered</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {services.map((service, index) => (
-              <div key={index} className="glass-card p-8 hover:border-ai-blue/30 transition-all duration-300 flex flex-col h-full">
-                <h4 className="text-xl font-bold text-white mb-3">{service.title}</h4>
-                <p className="text-ai-light/80 mb-6">{service.description}</p>
-                <div className="mt-auto">
-                  <h5 className="text-sm uppercase text-ai-blue mb-2">Includes:</h5>
-                  <ul className="space-y-2">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-ai-blue mr-2">•</span>
-                        <span className="text-ai-light/70">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div key={index} className="bg-gradient-to-r from-ai-dark to-ai-dark/70 rounded-lg p-8 border-l-4 border-ai-blue hover:shadow-lg hover:shadow-ai-blue/20 transition-all">
+                <h4 className="text-xl font-semibold mb-4 text-white">{service.title}</h4>
+                <p className="text-gray-300 mb-6">{service.description}</p>
+                <button className="text-ai-blue hover:text-ai-blue/80 font-medium flex items-center">
+                  Learn More <ArrowRight className="ml-2 w-4 h-4" />
+                </button>
               </div>
             ))}
           </div>

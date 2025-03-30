@@ -1,173 +1,149 @@
 
-import React, { useState } from 'react';
-import { Mail, Linkedin, Github, Send } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { useToast } from '@/components/ui/use-toast';
+import { Button } from '@/components/ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Mail, Linkedin, Github, Send } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+
+const formSchema = z.object({
+  name: z.string().min(2, 'Name must be at least 2 characters'),
+  email: z.string().email('Please enter a valid email address'),
+  message: z.string().min(10, 'Message must be at least 10 characters'),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
+  
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      message: '',
+    },
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  const onSubmit = (data: FormValues) => {
+    console.log('Form data:', data);
+    // Here you would typically send this data to your backend or email service
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast({
-        title: "Message sent!",
-        description: "Thanks for reaching out. I'll get back to you soon.",
-      });
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        message: ''
-      });
-    }, 1500);
+    toast({
+      title: "Message Sent!",
+      description: "Thanks for reaching out. I'll get back to you soon.",
+    });
+    
+    form.reset();
   };
 
   return (
-    <section id="contact" className="py-20 bg-gradient-to-b from-ai-dark/95 to-ai-dark">
-      <div className="section-container">
-        <h2 className="section-title">Get In Touch</h2>
-        <p className="text-ai-light/80 max-w-2xl mb-12">
-          Have a project in mind or want to discuss how AI can benefit your business? 
-          Feel free to reach out, and I'll get back to you as soon as possible.
-        </p>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="glass-card p-8">
-            <h3 className="text-2xl font-bold text-white mb-6">Send Me a Message</h3>
+    <section id="contact" className="py-20">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">Get In Touch</h2>
+        <div className="h-1 w-20 bg-ai-blue mb-10"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-white">Contact Information</h3>
+            <p className="text-gray-300 mb-8">
+              Interested in discussing how AI can transform your business? I'm here to help.
+              Whether you have a specific project in mind or just want to explore possibilities,
+              feel free to reach out.
+            </p>
             
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-ai-light/80 mb-1">
-                  Your Name
-                </label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  required
-                  className="bg-white/5 border-white/10 text-white placeholder:text-ai-light/50"
-                />
+            <div className="space-y-6">
+              <div className="flex items-center">
+                <Mail className="w-5 h-5 text-ai-blue mr-4" />
+                <a href="mailto:tarachandvishnoi@gmail.com" className="text-gray-300 hover:text-ai-blue transition-colors">
+                  tarachandvishnoi@gmail.com
+                </a>
               </div>
               
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-ai-light/80 mb-1">
-                  Email Address
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="john.doe@example.com"
-                  required
-                  className="bg-white/5 border-white/10 text-white placeholder:text-ai-light/50"
-                />
+              <div className="flex items-center">
+                <Linkedin className="w-5 h-5 text-ai-blue mr-4" />
+                <a href="https://linkedin.com/in/tarachand" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-ai-blue transition-colors">
+                  linkedin.com/in/tarachand
+                </a>
               </div>
               
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-ai-light/80 mb-1">
-                  Your Message
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="How can I help you with your AI project?"
-                  required
-                  rows={5}
-                  className="bg-white/5 border-white/10 text-white placeholder:text-ai-light/50"
-                />
+              <div className="flex items-center">
+                <Github className="w-5 h-5 text-ai-blue mr-4" />
+                <a href="https://github.com/tarachand" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-ai-blue transition-colors">
+                  github.com/tarachand
+                </a>
               </div>
-              
-              <Button 
-                type="submit" 
-                className="w-full bg-ai-blue hover:bg-ai-blue/90"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
-                <Send size={16} className="ml-2" />
-              </Button>
-            </form>
+            </div>
           </div>
           
-          <div className="space-y-8">
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <Mail className="text-ai-blue mt-1 mr-4" size={20} />
-                  <div>
-                    <h4 className="text-ai-light font-medium mb-1">Email</h4>
-                    <a 
-                      href="mailto:tarachandvishnoi@gmail.com" 
-                      className="text-ai-light/70 hover:text-ai-blue transition-colors"
-                    >
-                      tarachandvishnoi@gmail.com
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <div className="glass-card p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">Connect Online</h3>
-              
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <Linkedin className="text-ai-blue mt-1 mr-4" size={20} />
-                  <div>
-                    <h4 className="text-ai-light font-medium mb-1">LinkedIn</h4>
-                    <a 
-                      href="https://linkedin.com/in/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-ai-light/70 hover:text-ai-blue transition-colors"
-                    >
-                      linkedin.com/in/tarachand
-                    </a>
-                  </div>
-                </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-6 text-white">Send Me a Message</h3>
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-300">Name</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="Your name" 
+                          className="bg-ai-dark/50 border-gray-700 text-white focus-visible:ring-ai-blue" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 
-                <div className="flex items-start">
-                  <Github className="text-ai-blue mt-1 mr-4" size={20} />
-                  <div>
-                    <h4 className="text-ai-light font-medium mb-1">GitHub</h4>
-                    <a 
-                      href="https://github.com/" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-ai-light/70 hover:text-ai-blue transition-colors"
-                    >
-                      github.com/tarachand
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-300">Email</FormLabel>
+                      <FormControl>
+                        <Input 
+                          placeholder="Your email" 
+                          className="bg-ai-dark/50 border-gray-700 text-white focus-visible:ring-ai-blue" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-gray-300">Message</FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="How can I help you?" 
+                          className="bg-ai-dark/50 border-gray-700 text-white focus-visible:ring-ai-blue min-h-[120px]" 
+                          {...field} 
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                
+                <Button type="submit" className="bg-ai-blue hover:bg-ai-blue/90 text-white w-full">
+                  Send Message <Send className="ml-2 w-4 h-4" />
+                </Button>
+              </form>
+            </Form>
           </div>
         </div>
       </div>

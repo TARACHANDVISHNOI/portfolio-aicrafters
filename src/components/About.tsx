@@ -1,73 +1,64 @@
 
 import React from 'react';
-import { Briefcase, Calendar, GraduationCap } from 'lucide-react';
-
-const workExperience = [
-  {
-    title: "AI Consultant",
-    company: "Quantal",
-    period: "2022 - Present",
-    description: "Leading AI strategy and implementation for enterprise clients. Developing custom machine learning models and automation solutions that drive business growth."
-  },
-  {
-    title: "Machine Learning Engineer",
-    company: "Tech Innovators",
-    period: "2020 - 2022",
-    description: "Developed and deployed production-ready ML models for predictive analytics and natural language processing applications."
-  },
-  {
-    title: "Data Scientist",
-    company: "DataDriven Solutions",
-    period: "2019 - 2020",
-    description: "Analyzed complex datasets to extract actionable insights and built predictive models to optimize business processes."
-  }
-];
 
 const About: React.FC = () => {
-  return (
-    <section id="about" className="py-20 bg-gradient-to-b from-ai-dark to-ai-dark/95">
-      <div className="section-container">
-        <h2 className="section-title">About Me</h2>
+  const experiences = [
+    {
+      title: 'AI Consultant',
+      company: 'Quantal',
+      period: '2022 - Present',
+      description: 'Leading AI strategy development and implementation for enterprise clients. Specializing in process automation, machine learning solutions, and AI-powered analytics.'
+    },
+    {
+      title: 'Senior Data Scientist',
+      company: 'Tech Innovations Inc.',
+      period: '2020 - 2022',
+      description: 'Developed and deployed machine learning models for predictive analytics. Built natural language processing solutions for customer service automation.'
+    },
+    {
+      title: 'Data Analyst',
+      company: 'Digital Solutions',
+      period: '2019 - 2020',
+      description: 'Analyzed large datasets to extract business insights. Created data visualization dashboards for executive decision-making.'
+    }
+  ];
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-12">
-          <div className="glass-card p-8 animate-fade-in">
-            <h3 className="text-2xl font-bold mb-4 text-ai-blue">My Journey</h3>
-            <p className="text-ai-light/80 mb-6">
-              With over 3.5 years of experience in the AI industry, I specialize in developing and 
-              implementing AI strategies that drive real business outcomes. My journey in AI began with 
-              a deep fascination for how intelligent systems can transform the way we work and live.
+  return (
+    <section id="about" className="py-20 bg-gradient-to-b from-ai-dark to-ai-dark/90">
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">About Me</h2>
+        <div className="h-1 w-20 bg-ai-blue mb-10"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <h3 className="text-xl font-semibold mb-4 text-white">My Journey</h3>
+            <p className="text-gray-300 mb-6">
+              With over 3.5 years of experience in artificial intelligence and machine learning, 
+              I've helped numerous businesses transform their operations through intelligent automation 
+              and data-driven insights. As an AI Consultant at Quantal, I specialize in developing 
+              custom AI solutions that address real business challenges.
             </p>
-            <p className="text-ai-light/80 mb-6">
-              As an AI Consultant at Quantal, I work closely with businesses to understand their unique 
-              challenges and develop tailored AI solutions that address their specific needs. My expertise 
-              spans machine learning, natural language processing, computer vision, and AI automation.
+            <p className="text-gray-300 mb-6">
+              My approach combines technical expertise with strategic thinking to ensure AI 
+              implementations deliver measurable ROI. I believe in creating AI systems that are 
+              not only powerful but also transparent, ethical, and aligned with business goals.
             </p>
-            <p className="text-ai-light/80">
-              I believe in creating AI systems that are not only powerful and efficient but also ethical, 
-              transparent, and accessible. My goal is to bridge the gap between cutting-edge AI technology 
-              and practical business applications.
+            <p className="text-gray-300">
+              Whether you're looking to automate routine tasks, gain deeper customer insights, 
+              or develop innovative AI-powered products, I'm here to guide you through the process 
+              from concept to deployment.
             </p>
           </div>
-
-          <div className="space-y-8 stagger-animation">
-            <h3 className="text-2xl font-bold text-ai-blue">Experience Timeline</h3>
-            
-            <div className="relative border-l-2 border-ai-blue/30 pl-8 space-y-10">
-              {workExperience.map((exp, index) => (
-                <div key={index} className="relative">
-                  <div className="absolute -left-10 mt-1.5 w-5 h-5 rounded-full border-2 border-ai-blue bg-ai-dark"></div>
-                  <div className="glass-card p-6 hover:border-ai-blue/30 transition-all duration-300">
-                    <div className="flex items-center text-sm text-ai-light/60 mb-2">
-                      <Calendar size={14} className="mr-2" />
-                      <span>{exp.period}</span>
-                    </div>
-                    <h4 className="text-xl font-bold text-white">{exp.title}</h4>
-                    <div className="flex items-center text-ai-blue mb-3">
-                      <Briefcase size={16} className="mr-2" />
-                      <span>{exp.company}</span>
-                    </div>
-                    <p className="text-ai-light/80">{exp.description}</p>
-                  </div>
+          
+          <div>
+            <h3 className="text-xl font-semibold mb-4 text-white">Experience</h3>
+            <div className="space-y-6">
+              {experiences.map((exp, index) => (
+                <div key={index} className="border-l-2 border-ai-blue pl-6 relative">
+                  <div className="absolute w-3 h-3 bg-ai-blue rounded-full -left-[7px] top-2"></div>
+                  <h4 className="text-lg font-semibold text-white">{exp.title}</h4>
+                  <p className="text-ai-blue">{exp.company} | {exp.period}</p>
+                  <p className="text-gray-300 mt-2">{exp.description}</p>
                 </div>
               ))}
             </div>
